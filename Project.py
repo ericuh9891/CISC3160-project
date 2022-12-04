@@ -10,6 +10,10 @@ class Lexer():
       self.input_char = '$'
     else:
       self.input_char = self.statement[self.current_index]
+      # checks for and skips over whitespace, newline and tabs
+      while self.input_char in ' \n\t':
+        self.current_index += 1
+        self.input_char = self.statement[self.current_index]
       print(self.input_char)
       self.current_index += 1
   
@@ -184,4 +188,4 @@ class Lexer():
 def main(statement: str):
   print(Lexer().run(statement))
 
-main('z=---(((x+y)))-(x+-y);')
+main('z = - --( \n  ((x+y)))-(x+-y);')
