@@ -1,0 +1,19 @@
+(DONE)Try coding java example into python with sample grammar
+
+(DONE)Try first and follow on sample grammar to see if it's the reason for the extra match cases
+
+(DONE)Eliminate left recursion on project CFG
+
+(DONE)Do First and Follow on project CFG
+
+(DONE)prototype python syntax checker similar to sample grammer program
+  -(DONE)Do First and Follow for [Letter|D]* and D*
+
+(DONE)Try to tokenize into +,-,*,(,),=,id,literal
+  -Tokenizing while it's doing recursive syntax checks does not produce
+   tokens in the correct order
+  -Try tokenizing inside the next_char method
+
+Refactor out Token classes
+
+Create parser
