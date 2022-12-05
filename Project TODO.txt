@@ -10,10 +10,12 @@
   -(DONE)Do First and Follow for [Letter|D]* and D*
 
 (DONE)Try to tokenize into +,-,*,(,),=,id,literal
-  -Tokenizing while it's doing recursive syntax checks does not produce
+  *Tokenizing while it's doing recursive syntax checks does not produce
    tokens in the correct order
-  -Try tokenizing inside the next_char method
+  -(DONE)Try tokenizing inside the next_char method
 
-Refactor out Token classes
+(DONE)Refactor out Token classes
 
 Create parser
+
+Try putting syntax errors messages in the recursive descent parser
