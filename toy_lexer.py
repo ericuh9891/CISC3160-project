@@ -1,13 +1,24 @@
 from toy_tokens import Token, TokenType
 
 class Lexer():
-	input_char: str = ''
-	current_index: int = 0
-	statement: str = ''
-	token_start: int = 0
-	tokens: list[Token] = []
+	input_char: str 
+	current_index: int
+	statement: str
+	token_start: int
+	tokens: list[Token]
 	identifier_flag = False
 	literal_flag = False
+
+	def __init__(self, statement) -> None:
+		# initialize variables
+		self.statement = statement
+		self.current_index = 0
+		self.tokens: list[Token] = []
+		# start lexer
+		self.tokenize()
+
+	def __repr__(self):
+		return f'Tokens: \n{self.tokens}'
 
 	# points the input_token to the next char
 	# returns the $ if it reaches the end of the string
@@ -20,31 +31,37 @@ class Lexer():
 			# create tokens
 			# First(Literal) = {0,1,2,3,4,5,6,7,8,9}
 			# When a literal begins
-			if self.input_char in '0123456789' and self.literal_flag == False and self.identifier_flag == False:
+			if True and self.input_char in '0123456789' and self.literal_flag == False and self.identifier_flag == False:
 				self.literal_flag = True
 				self.token_start = self.current_index
 			# Follow(Literal) = {*,+,-,;,)}
 			# When a literal ends
-			if self.input_char in '*+-;)' and self.literal_flag == True:
+			elif self.input_char in '*+-;)' and self.literal_flag == True:
 				self.literal_flag = False
 				self.tokens.append(Token(TokenType.LITERAL, int(self.statement[self.token_start:self.current_index])))
 			# First(I) = {a,b,c,...,x,y,z,A,B,C,...,X,Y,Z,_}
 			# When an identifier begins
-			if self.input_char in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' and self.identifier_flag == False:
+			elif self.input_char in 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_' and self.identifier_flag == False:
 				self.identifier_flag = True
 				self.token_start = self.current_index
 			# Follow(I) = {=,*,+,-,;,)}
 			# When an identifier ends
-			if self.input_char in '=*+-;)' and self.identifier_flag == True:
+			elif self.input_char in '=*+-;)' and self.identifier_flag == True:
 				self.identifier_flag = False
 				self.tokens.append(Token(TokenType.IDENTIFIER, self.statement[self.token_start:self.current_index]))
 			match self.input_char:
 				case '=':
 					self.tokens.append(Token(TokenType.ASSIGNMENT))
-				case '-':
-					self.tokens.append(Token(TokenType.MINUS))
-				case '+':
-					self.tokens.append(Token(TokenType.PLUS))
+				case '-': 
+					if self.tokens[-1].type in (TokenType.LITERAL, TokenType.IDENTIFIER):
+						self.tokens.append(Token(TokenType.SUBTRACT))
+					else:
+						self.tokens.append(Token(TokenType.MINUS))
+				case '+': 
+					if self.tokens[-1].type in (TokenType.LITERAL, TokenType.IDENTIFIER):
+						self.tokens.append(Token(TokenType.ADD))
+					else:
+						self.tokens.append(Token(TokenType.PLUS))
 				case '*':
 					self.tokens.append(Token(TokenType.MULTIPLY))
 				case '(':
@@ -63,10 +80,7 @@ class Lexer():
 		return True
 
 	# initialize class variables and starts the parsing of passed in string
-	def tokenize(self, statement: str) -> bool:
-		# initialize variables
-		self.statement = statement
-		self.current_index = 0
+	def tokenize(self) -> bool:
 		# starts parsing
 		self.next_char()
 		# the start production rule
@@ -236,12 +250,3 @@ class Lexer():
 		if self.digit():
 			return self.zero_or_more_digit()
 		return False
-
-def main(statement: str):
-	lexer = Lexer()
-	print(lexer.tokenize(statement))
-	print(lexer.getTokens())
-
-# main('z=---(((x+y)))-(x+-1);')
-# main('z=308080+982*(x+-1);')
-main('z=---(x+y)*(x+-y);')

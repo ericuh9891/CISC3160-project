@@ -16,6 +16,13 @@
 
 (DONE)Refactor out Token classes
 
-Create parser
+(DONE)Create parser
+  -For creating unary - and + tokens, try checking the token preceding it,
+   if it's a literal or an identifier or another unary + or -, then the token should be a unary + or -
 
+(DONE)Interpret the syntax tree
+  -Try something similar to the recursive descent parser
+
+Try value replacement on id nodes when being traversed
+  -Bug, shouldn't do replacement on left hand side of assignment operator
 Try putting syntax errors messages in the recursive descent parser
