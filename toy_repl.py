@@ -9,11 +9,7 @@ while True:
     statement = input("toyREPL> ")
     lexer = Lexer(statement)
     print(f"Lexer: {lexer}")
-    # lexer.tokenize(statement)
     tokens = lexer.getTokens()
-    # temp hack to test the parser
-    # tokens = tokens[2:len(tokens)]
-    print(f"Tokens: {tokens}")
     parser = Parser(tokens)
     tree = parser.parse()
     print(f"Tree: {tree}")
@@ -23,5 +19,10 @@ while True:
     print(f"Evaluated variable and value: {variable}, {value}")
     variables[variable] = value
     print(f"Saved Variables: {variables}")
+  except KeyboardInterrupt:
+    print("Exiting")
+    exit()
+  except SyntaxError as se:
+    print(f"Syntax Error" + f"" if se else f" {se}")
   except Exception as e:
     raise e
