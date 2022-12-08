@@ -46,17 +46,17 @@ class Lexer():
 				self.token_start = self.current_index
 
 			# When a literal ends, Follow(Literal) = {*,+,-,;,)}
-			elif self.input_char in '*+-;)' and self.literal_flag == True:
+			if self.input_char in '*+-;)' and self.literal_flag == True:
 				self.literal_flag = False
 				self.tokens.append(Token(TokenType.LITERAL, int(self.statement[self.token_start:self.current_index])))
 			
 			# When an identifier begins, First(I) = {a,b,c,...,x,y,z,A,B,C,...,X,Y,Z,_}
-			elif self.input_char in Lexer.ALPHABETS_ and self.identifier_flag == False:
+			if self.input_char in Lexer.ALPHABETS_ and self.identifier_flag == False:
 				self.identifier_flag = True
 				self.token_start = self.current_index
 			
 			# When an identifier ends, Follow(I) = {=,*,+,-,;,)}
-			elif self.input_char in '=*+-;)' and self.identifier_flag == True:
+			if self.input_char in '=*+-;)' and self.identifier_flag == True:
 				self.identifier_flag = False
 				self.tokens.append(Token(TokenType.IDENTIFIER, self.statement[self.token_start:self.current_index]))
 
@@ -103,7 +103,7 @@ class Lexer():
 		# the start production rule
 		if not self.assignment():
 			return False
-			
+
 		# if it's an assignment then the last char should be a $
 		return self.match('$')
 
@@ -278,7 +278,7 @@ class Lexer():
 		if self.input_char in '=*+-;)':
 			return True
 
-		if self.input_char in Lexer.ALPHABETS_:
+		if self.input_char in Lexer.ALPHABETS_ + Lexer.DIGITS:
 			self.next_char()
 			return self.letter_or_digit()
 
