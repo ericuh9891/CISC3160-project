@@ -23,6 +23,7 @@
 (DONE)Interpret the syntax tree
   -Try something similar to the recursive descent parser
 
-Try value replacement on id nodes when being traversed
+(DONE)Try value replacement on id nodes when being traversed
   -Bug, shouldn't do replacement on left hand side of assignment operator
-Try putting syntax errors messages in the recursive descent parser
+  
+(DONE)Try putting syntax errors messages in the recursive descent parser

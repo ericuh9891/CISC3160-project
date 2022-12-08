@@ -33,7 +33,7 @@ class Parser:
 
 		return result
 
-	# Assignment => Identifier = Exp;
+	# Assignment -> Identifier = Exp;
 	def assignment(self):
 
 		while self.current_token != None and self.current_token.type in (TokenType.IDENTIFIER, TokenType.ASSIGNMENT):
@@ -46,7 +46,7 @@ class Parser:
 
 		return result
 
-	# Exp => Exp + Term | Exp - Term | Term
+	# Exp -> Exp + Term | Exp - Term | Term
 	def expression(self):
 		result = self.term()
 
@@ -60,7 +60,7 @@ class Parser:
 
 		return result
 
-	# Term => Term * Fact | Fact
+	# Term -> Term * Fact | Fact
 	def term(self):
 		result = self.factor()
 
@@ -71,7 +71,7 @@ class Parser:
 				
 		return result
 
-	# Fact => (Exp) | -Fact | +Fact | Literal | Identifier
+	# Fact -> (Exp) | -Fact | +Fact | Literal | Identifier
 	def factor(self):
 		token = self.current_token
 

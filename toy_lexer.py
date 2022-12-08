@@ -20,7 +20,6 @@ class Lexer():
 	literal_flag = False
 
 	def __init__(self, statement):
-		# initialize variables
 		self.statement = statement
 		self.current_index = 0
 		self.tokens: list[Token] = []
@@ -126,7 +125,6 @@ class Lexer():
 
 	# Production rule: E -> TE'
 	def expression(self):
-
 		if not self.term():
 			return False
 
