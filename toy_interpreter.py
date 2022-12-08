@@ -1,5 +1,4 @@
 from toy_nodes import *
-from toy_number import Number
 
 class Interpreter:
 	variables: dict[str, int]
@@ -13,25 +12,25 @@ class Interpreter:
 		return method(node)
 
 	def visit_AssignmentNode(self, node):
-		return (self.visit(node.node_a).value, self.visit(node.node_b).value)
+		return (self.visit(node.node_a), self.visit(node.node_b))
 
 	def visit_IdentifierNode(self, node):
-		return Number(node.value)
+		return node.value
 
 	def visit_NumberNode(self, node):
-		return Number(node.value)
+		return node.value
 
 	def visit_AddNode(self, node):
-		return Number(self.visit(node.node_a).value + self.visit(node.node_b).value)
+		return self.visit(node.node_a) + self.visit(node.node_b)
 
 	def visit_SubtractNode(self, node):
-		return Number(self.visit(node.node_a).value - self.visit(node.node_b).value)
+		return self.visit(node.node_a) - self.visit(node.node_b)
 
 	def visit_MultiplyNode(self, node):
-		return Number(self.visit(node.node_a).value * self.visit(node.node_b).value)
+		return self.visit(node.node_a) * self.visit(node.node_b)
 	
 	def visit_PlusNode(self, node):
 		return self.visit(node.node)
 
 	def visit_MinusNode(self, node):
-		return Number(-self.visit(node.node).value)
+		return -self.visit(node.node)
