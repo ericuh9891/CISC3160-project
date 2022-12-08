@@ -16,11 +16,7 @@ class Interpreter:
 		return (self.visit(node.node_a).value, self.visit(node.node_b).value)
 
 	def visit_IdentifierNode(self, node):
-		print(f"IdentifierNode: {node.value}, get variable: {self.variables.get(node.value)}")
-		if bool(self.variables) and self.variables.get(node.value) != None:
-			return Number(self.variables.get(node.value))
-		else:
-			return Number(node.value)
+		return Number(node.value)
 
 	def visit_NumberNode(self, node):
 		return Number(node.value)
@@ -38,5 +34,4 @@ class Interpreter:
 		return self.visit(node.node)
 
 	def visit_MinusNode(self, node):
-		print(f'visit_MinusNode: {node}')
 		return Number(-self.visit(node.node).value)

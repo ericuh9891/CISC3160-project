@@ -1,5 +1,11 @@
 from toy_tokens import Token, TokenType
 
+"""
+CFG with removal of direct left recursion and 
+list of first and follow char sets are included in
+project folder as a JPEG since I did it on a whiteboard
+"""
+
 class Lexer():
 	ALPHABETS_ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ_"
 	DIGITS = "0123456789"
@@ -18,6 +24,7 @@ class Lexer():
 		self.statement = statement
 		self.current_index = 0
 		self.tokens: list[Token] = []
+
 		# start lexer
 		if not self.tokenize():
 			raise SyntaxError()
@@ -87,12 +94,16 @@ class Lexer():
 		self.next_char()
 		return True
 
-	# starts parsing
+	# Production rule: P -> A*
 	def tokenize(self):
 		self.next_char()
+		if not self.statement:
+			return True
+
 		# the start production rule
 		if not self.assignment():
 			return False
+			
 		# if it's an assignment then the last char should be a $
 		return self.match('$')
 

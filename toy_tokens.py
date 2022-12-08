@@ -10,9 +10,8 @@ class TokenType(Enum):
 	ASSIGNMENT  = 5
 	LPAREN      = 6
 	RPAREN      = 7
-	DIVIDE      = 8
-	ADD					= 9
-	SUBTRACT		= 10
+	ADD					= 8
+	SUBTRACT		= 9
 
 @dataclass
 class Token:
