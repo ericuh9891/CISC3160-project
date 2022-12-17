@@ -42,7 +42,7 @@ def main():
     output.append(f"Syntax Error on line {line_counter} : {new_line_removed}")
 
   except NameError as ne:
-    output.append(f"Uninitialized Error: {ne}")
+    output.append(f"Uninitialized Error on line {line_counter} : '{new_line_removed}' : {ne}")
 
   except Exception as e:
     raise e
